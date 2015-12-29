@@ -1,5 +1,7 @@
 package com.skillsup.kirill.springjava.service;
 
+import com.skillsup.kirill.springjava.model.Contact;
+
 import java.util.List;
 
 /**

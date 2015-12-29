@@ -1,5 +1,6 @@
-package com.skillsup.kirill.springjava.service;
+package com.skillsup.kirill.springjava.model;
 
+import com.skillsup.kirill.springjava.model.Contact;
 import org.junit.Before;
 import org.junit.Test;
 

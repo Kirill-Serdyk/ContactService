@@ -1,8 +1,10 @@
-package com.skillsup.kirill.springjava.service;
+package com.skillsup.kirill.springjava.model;
+
 
 /**
  * Created by Kirill on 12.12.2015.
  */
+
 
 public class Contact {
     private String name;

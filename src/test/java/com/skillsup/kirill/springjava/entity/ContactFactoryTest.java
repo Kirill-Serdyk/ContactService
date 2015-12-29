@@ -1,6 +1,7 @@
-package com.skillsup.kirill.springjava.service;
+package com.skillsup.kirill.springjava.entity;
 
-import org.junit.Before;
+import com.skillsup.kirill.springjava.entity.ContactFactory;
+import com.skillsup.kirill.springjava.model.Contact;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
