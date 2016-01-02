@@ -1,14 +1,13 @@
 package com.skillsup.kirill.springjava.config;
 
 import com.skillsup.kirill.springjava.dao.ContactDao;
-import com.skillsup.kirill.springjava.entity.ContactFactory;
 import com.skillsup.kirill.springjava.service.impl.ContactServiceImp;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -24,6 +23,7 @@ import java.util.Properties;
  */
 
 @Configuration
+@ComponentScan({"com.skillsup.kirill.springjava.service", "com.skillsup.kirill.springjava.dao"})
 @EnableTransactionManagement
 public class SpringConfiguration {
 
@@ -39,7 +39,31 @@ public class SpringConfiguration {
         return dataSource;
     }
 
+//    @Bean
+//    public DataSource dataSource(){
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//
+//        dataSource.setDriverClassName("org.h2.Driver");
+//        dataSource.setUrl("jdbc:h2:~/H2DB/Contacts");
+//        dataSource.setUsername("sa");
+//        dataSource.setPassword("");
+//
+//        return dataSource;
+//    }
+
+//    @Bean
+//    public DataSource dataSource() {
+//        EmbeddedDatabaseBuilder edb = new EmbeddedDatabaseBuilder()
+//                .setType(EmbeddedDatabaseType.HSQL);//.H2 or .DERBY
+//        //.addScript("db/sql/create-db.sql")
+//        //.addScript("db/sql/insert-data.sql")
+//
+//        DataSource dS = edb.build();
+//        return dS;
+//    }
+
     @Bean
+    //@DependsOn("dataSource")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 
@@ -65,27 +89,29 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer(){
+    public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
     private Properties additionalProperties(){
         Properties properties = new Properties();
-        properties.put("hibernate.show_sql", "thrue");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
+
         return properties;
     }
 
-//    @Bean
-//    public ContactDao contactDao(){
-//        return new ContactDao();
-//    }
-//
-//    @Bean
-//    public ContactServiceImp contactServiceImp(){
-//        return new ContactServiceImp();
-//    }
-//
+    @Bean
+    public ContactDao contactDao(){
+        return new ContactDao();
+    }
+
+    @Bean
+    public ContactServiceImp contactServiceImp(){
+        return new ContactServiceImp();
+    }
+
 //    @Bean
 //    public ContactFactory contactFactory(){
 //        return new ContactFactory();

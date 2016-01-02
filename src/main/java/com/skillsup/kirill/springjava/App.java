@@ -3,7 +3,6 @@ package com.skillsup.kirill.springjava;
 
 import com.skillsup.kirill.springjava.config.SpringConfiguration;
 import com.skillsup.kirill.springjava.model.Contact;
-import com.skillsup.kirill.springjava.entity.ContactFactory;
 import com.skillsup.kirill.springjava.service.impl.ContactServiceImp;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -15,13 +14,19 @@ public class App {
     public static void main(String[] args) throws Exception {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfiguration.class);
 
+        System.out.println("Я тута0");
+
         ContactServiceImp contactServiceImp = applicationContext.getBean(ContactServiceImp.class);
+
+        System.out.println("Я тута1");
 
         Contact contact = new Contact();
         contact.setName("Kirill");
         contact.setPhone("phone");
         contact.setEmail("Email");
         contactServiceImp.addContact(contact);
+
+        System.out.println("Я тута2");
 
         for (Contact savedContact: contactServiceImp.getAllContacts()){
             System.out.println("Saved contact - " + savedContact);
